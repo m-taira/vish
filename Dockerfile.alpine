@@ -1,0 +1,23 @@
+FROM alpine
+
+RUN apk add fish vim git
+RUN apk add curl
+RUN apk add tmux
+#RUN apk --no-cache --update add less
+RUN apk --no-cache add git-diff-highlight
+
+
+
+RUN adduser --disabled-password taira
+USER taira
+RUN curl -o ~/.config/fish/functions/fisher.fish --create-dirs -LO https://git.io/fisher
+RUN fish -c "fisher add oh-my-fish/theme-bobthefish"
+#RUN fish -c "fisher add omf/theme-agnoster"
+
+
+RUN mkdir -p ~/.vim/pack/plugins/start
+RUN git clone https://github.com/scrooloose/nerdtree.git ~/.vim/pack/plugins/start/nerdtree
+RUN git clone https://github.com/nathanaelkane/vim-indent-guides ~/.vim/pack/plugins/start/vim-indent-guides
+
+ADD .tmux.conf /home/taira/.tmux.conf
+CMD fish
