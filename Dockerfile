@@ -10,8 +10,8 @@ RUN apt-get update
 RUN apt-get install -y vim fish git curl locales
 RUN locale-gen ja_JP.UTF-8
 RUN adduser --disabled-password taira
-RUN git clone https://github.com/powerline/fonts 
-RUN fonts/install.sh
+#RUN git clone https://github.com/powerline/fonts 
+#RUN fonts/install.sh
 
 USER taira
 RUN curl -o ~/.config/fish/functions/fisher.fish --create-dirs -LO https://git.io/fisher
@@ -32,5 +32,5 @@ RUN git clone https://github.com/vim-airline/vim-airline ~/.vim/pack/plugins/sta
 RUN git clone https://github.com/vim-airline/vim-airline-themes ~/.vim/pack/plugins/start/vim-airline-themes
 
 ADD --chown=taira:taira .vimrc /home/taira/.vimrc
-
+ADD --chown=root:root .vimrc /root
 CMD fish
